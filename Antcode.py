@@ -17,11 +17,17 @@ from Advance import adv
 client = commands.Bot(command_prefix="/")
 
 
+@client.event
+async def on_message(message):
+     if message.author == client.user:
+        return
+     else:
+         pass
+     await  client.process_commands(message)
 
 
 
-
-basic(client)
+mid(client)
 
 
 

@@ -2,6 +2,7 @@ import discord
 from bs4 import BeautifulSoup as soup
 import requests
 import random
+from discord.ext import commands
 
 
 
@@ -32,7 +33,7 @@ def mid(client):
                 embed.set_image(url=thumb)
                 embed.add_field(name="Genre", value=genres, inline=True)
                 embed.add_field(name="Latest Chapter", value=lch, inline=False)
-                embed.set_footer(text="©ZoroSama")
+                embed.set_footer(text="©whiteanT")
                 await ctx.send(embed=embed)
             except:
 
