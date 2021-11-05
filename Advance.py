@@ -1,0 +1,6 @@
+def adv(client):
+
+      pass
+
+
+
