@@ -10,11 +10,15 @@ import random
 import json
 
 from Basic import basic
-from mid import  mid
+from mid import mid
 from Advance import adv
 
 
 client = commands.Bot(command_prefix="/")
+
+
+#Color
+
 
 
 @client.event
@@ -26,9 +30,9 @@ async def on_message(message):
      await  client.process_commands(message)
 
 
-
+basic(client)
 mid(client)
-
+adv(client)
 
 
 client.run("NzgwNDM4NzgyMjQyODQ4ODA5.X7vGQQ.nQezCnXU_yyXIWjcuVi_yFk7vmo")
