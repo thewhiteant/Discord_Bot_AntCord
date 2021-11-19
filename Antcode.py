@@ -14,10 +14,10 @@ from mid import mid
 from Advance import adv
 
 
-client = commands.Bot(command_prefix="/")
+client = commands.Bot(command_prefix="/", help_command=None,intents=discord.Intents.all())
 
 
-#Color
+
 
 
 

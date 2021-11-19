@@ -4,15 +4,26 @@ import random
 import requests
 
 
+
+
+
 def quoteCOl():
     data = requests.get("https://zenquotes.io/api/random")
     if data.status_code == 200:
         final = data.json()
-        return final[0]['q'] + "-" + final[0]['a']
+        return final[0]['q'] + " --" + final[0]['a']
 
 
 
 def basic(client):
+    @client.event
+    async def on_member_join(member):
+        await member.send("Test")
+
+    @client.event
+    async def on_member_remove(member):
+        print("someone leave")
+
     dpLi= []
     dic = []
 
@@ -79,6 +90,20 @@ def basic(client):
 
     @client.command()
     async def quote(ctx):
-         await ctx.send(f"> {quoteCOl()}")
+         await ctx.send(f"> **{quoteCOl()}**")
+
+    #
+    # @client.command()
+    # async def rl(ctx):
+    #     role = discord.utils.get(ctx.guild.roles, name="Ntx")
+    #     await ctx.author.add_roles(role)
+
+    @client.command()
+    async def rel(ctx):
+        role = discord.utils.get(ctx.guild.roles, name="Memeber")
+        await ctx.author.remove_roles(role)
 
 
+    @client.event
+    async def on_voice_state_update(member, before, after):
+        print(member)

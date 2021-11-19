@@ -1,6 +1,3 @@
 def adv(client):
-
+            
       pass
-
-
-
