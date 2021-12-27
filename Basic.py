@@ -107,3 +107,27 @@ def basic(client):
     @client.event
     async def on_voice_state_update(member, before, after):
         print(member)
+    
+    @client.command(pass_context=True)
+    async def pvt(ctx, *, msg):
+        print(f"{ctx.author.name} sent {msg}  Time: {x}")
+        await ctx.channel.purge(limit=1)
+        await ctx.send(msg)
+
+
+    @client.command()  # Invite to your dm
+    async def invite(ctx):
+
+        inv = await ctx.channel.create_invite()
+        await ctx.author.send(inv)
+        embed = discord.Embed(title=ctx.author.name, description="Invite Already Sent To Your DM 😉 \n `If Dm are not available, Click Team Jucy on top of this`", color=0x01d9f1)
+        embed.set_author(name="Team JUCY", url=inv, icon_url="https://cdn.discordapp.com/splashes/557864258617081858/053c45339b4d85c9cca13ffdc151d720.jpg?size=2048")
+        embed.set_thumbnail(url=ctx.author.avatar_url)
+        embed.set_footer(text="Copyright \u00a9 White-Ant")
+        await ctx.send(embed=embed)
+
+
+    @client.command()
+    async def delt(ctx, rang):
+        rang = int(rang)
+        await ctx.channel.purge(limit=rang)
