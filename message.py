@@ -29,3 +29,5 @@ def message(client):
                     embed.set_footer(text="Copyright \u00a9 White-Ant")
                     await message.author.send(embed = embed)
             await client.process_commands(message)
+
+

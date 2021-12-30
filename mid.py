@@ -213,17 +213,16 @@ def mid(client):
                     Fbdl()
 
                     await ctx.channel.purge(limit=1)
-                    msg = await ctx.send("Is This The Video U want", file=discord.File("Test.mp4"))
+                    await ctx.send("Is This The Video U want", file=discord.File("Test.mp4"))
                     print("new video")
+                    if os.path.isfile('Test.mp4') == True:
+                         os.remove("Test.mp4")
+
             except:
                     await ctx.send("Video Is not found / Too Large!! 8MB limit")
                     await ctx.send(url)
-            os.remove("Test.mp4")
-
-
-
-
-
+                    if os.path.isfile('Test.mp4') == True:
+                         os.remove("Test.mp4")
 
 
 

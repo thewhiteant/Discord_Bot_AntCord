@@ -141,13 +141,6 @@ def basic(client):
         await user.send(msg)
 
 
-    
-
-    
-
-
-
-
 
 
 
