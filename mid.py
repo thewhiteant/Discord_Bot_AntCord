@@ -1,23 +1,15 @@
-import readchar
 import discord
 from bs4 import BeautifulSoup as soup
 import requests
 import random
-from discord.ext import commands
 from mal import AnimeSearch, Anime
-
-
-
-import os
-# load our local env so we dont have the token in public
-from dotenv import load_dotenv
-from discord.ext import commands
 from discord.utils import get
 from discord import FFmpegPCMAudio
-from discord import TextChannel
 from youtube_dl import YoutubeDL
-import ffmpeg
-
+import os
+import sys
+import urllib.parse
+import re
 
 #pip install PyNaCl
 
@@ -101,28 +93,6 @@ def mid(client):
                         iname = i.name.strip(' \n\t ')
                         vac = i.voice_actor.strip(' \n\t ')
                         role = i.role.strip(' \n\t ')
-                    #     print(iname)
-                    #     print(vac)
-                    #     print(role)
-
-
-
-
-
-                    # print(title)
-                    # print(title_japanese)
-                    # print(title_synonyms)
-                    # print(url)
-                    # print(types)
-                    # print(rating)
-                    # print(aired)
-                    # print(episodes)
-                    # print(popularity)
-                    # print(rank)
-                    # print(score)
-                    # print(genres)
-                    # print(status)
-                    # print(themes)
 
                         embed.add_field(name=f"Charecter {y}", value=iname, inline=True)
                     embed.set_footer(text="Copyright \u00a9 White-Ant")
@@ -193,6 +163,69 @@ def mid(client):
             if voice.is_playing():
                 voice.stop()
                 await ctx.send('Stopping...')
+                  
+        @client.command(pass_context=True)
+        async def gv(ctx, url):
+            class Fbdl:
+                def __init__(self):
+                    self.req = requests.Session()
+                    self.banner()
+
+                def banner(self):
+                    ur = url
+                    rl = ur.replace('https://m.', 'https://mbasic.').replace('https://www.', 'https://mbasic.')
+                    self.getlnk(rl)
+                def getlnk(self, url):
+                    r = self.req.get(url)
+                    rr = re.findall(r'<a href="(.*?)"', r.text)
+
+                    all_video = []
+                    for x in rr:
+                        if "/video_redirect/?src=" in x:
+                            all_video.append(x)
+                    data = all_video[0]
+                    self.dl(data)
+
+                def dl(self, link):
+                    re = link.replace('/video_redirect/?src=', '')
+                    ree = urllib.parse.unquote(re)
+                    print("Downloading ... ")
+
+                    
+                    with open(f"Test.mp4", "wb") as f:
+                        response = requests.get(ree, stream=True)
+                        total_length = response.headers.get('content-length')
+                        if total_length is None:
+                             pass
+                        else:
+                            dlw = 0
+                            total_length = int(total_length)
+                            for data in response.iter_content(chunk_size=4096):
+                                ges = int(100*dlw/total_length)
+                                dlw += len(data)
+
+                                f.write(data)
+                                done = int(25*dlw/total_length)
+                                sys.stdout.write(f"\r[{'>'*done}{'='*(25-done)}] {ges+1}% ")
+                                sys.stdout.flush()
+                        
+            try:
+                    Fbdl()
+
+                    await ctx.channel.purge(limit=1)
+                    msg = await ctx.send("Is This The Video U want", file=discord.File("Test.mp4"))
+                    print("new video")
+            except:
+                    await ctx.send("Video Is not found / Too Large!! 8MB limit")
+                    await ctx.send(url)
+            os.remove("Test.mp4")
+
+
+
+
+
+
+
 
 
 

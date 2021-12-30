@@ -106,7 +106,7 @@ def basic(client):
 
     @client.event
     async def on_voice_state_update(member, before, after):
-        print(member)
+        pass
     
     @client.command(pass_context=True)
     async def pvt(ctx, *, msg):
@@ -118,7 +118,7 @@ def basic(client):
     @client.command()  # Invite to your dm
     async def invite(ctx):
 
-        inv = await ctx.channel.create_invite()
+        inv = await ctx.channel.create_invite(max_age='300')
         await ctx.author.send(inv)
         embed = discord.Embed(title=ctx.author.name, description="Invite Already Sent To Your DM 😉 \n `If Dm are not available, Click Team Jucy on top of this`", color=0x01d9f1)
         embed.set_author(name="Team JUCY", url=inv, icon_url="https://cdn.discordapp.com/splashes/557864258617081858/053c45339b4d85c9cca13ffdc151d720.jpg?size=2048")
@@ -127,7 +127,27 @@ def basic(client):
         await ctx.send(embed=embed)
 
 
+
     @client.command()
     async def delt(ctx, rang):
         rang = int(rang)
         await ctx.channel.purge(limit=rang)
+
+
+    @client.command()
+    async def dm(ctx, user: discord.User, *, msg):
+        await ctx.channel.purge(limit=1)
+        await ctx.send(f"Private DM Sent To {user.name}....")
+        await user.send(msg)
+
+
+    
+
+    
+
+
+
+
+
+
+
