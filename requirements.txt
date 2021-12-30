@@ -2,6 +2,6 @@ discord.py==1.7.3
 youtube_dl
 PyNaCl
 requests
-mal==0.4.0
+mal
 bs4
 pythonping
