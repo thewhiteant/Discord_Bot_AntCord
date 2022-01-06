@@ -9,7 +9,7 @@ import discord
 
 def message(client):
 
-       galis = ["fuck", "shit", "gay" , "chudi", "chod", "ass" ,"pussy" , "boobs","magi" , "khanki"]
+       galis = ["fuck", "shit", "gay" , "chudi", "chod","pussy" , "boobs","magi","khanki"]
        @client.event
        async def on_message(message):
             if message.author == client.user: #boter commad e  react korbena

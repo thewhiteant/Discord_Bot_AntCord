@@ -1,5 +1,6 @@
 import discord
 from bs4 import BeautifulSoup as soup
+import gtts
 import requests
 import random
 from mal import AnimeSearch, Anime
@@ -10,11 +11,12 @@ import os
 import sys
 import urllib.parse
 import re
+from gtts import gTTS
+import asyncio
 
 #pip install PyNaCl
 
 def mid(client):
-
 
         #Manga Source Command
 
@@ -98,72 +100,6 @@ def mid(client):
                     embed.set_footer(text="Copyright \u00a9 White-Ant")
                     await ctx.send(embed=embed)
                        
-
-
-
-
-
-        # command to play sound from a youtube URL
-        @client.command()
-        async def play(ctx,*,url):
-
-            channel = ctx.message.author.voice.channel
-            voice = get(client.voice_clients, guild=ctx.guild)
-            if voice and voice.is_connected():
-                await voice.move_to(channel)
-            else:
-                voice = await channel.connect()
-
-            YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
-            FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
-            voice = get(client.voice_clients, guild=ctx.guild)
-
-
-
-            with YoutubeDL(YDL_OPTIONS) as ydl:
-                if url[0:4] == "https":
-                    info = ydl.extract_info(url, download=False)
-                else:
-        
-                  info = ydl.extract_info(f"ytsearch:{url}", download=False)['entries'][0]
-            URL = info['url']
-            voice.play(FFmpegPCMAudio(URL,executable="ffmpeg.exe", **FFMPEG_OPTIONS))
-            # voice.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source="test.mp3"))
-            voice.is_playing()
-            await ctx.send('Bot is playing')
-
-
-
-
-        # command to resume voice if it is paused
-        @client.command()
-        async def resume(ctx):
-            voice = get(client.voice_clients, guild=ctx.guild)
-
-            if not voice.is_playing():
-                voice.resume()
-                await ctx.send('Bot is resuming')
-
-
-        # command to pause voice if it is playing
-        @client.command()
-        async def pause(ctx):
-            voice = get(client.voice_clients, guild=ctx.guild)
-
-            if voice.is_playing():
-                voice.pause()
-                await ctx.send('Bot has been paused')
-
-
-        # command to stop voice
-        @client.command()
-        async def stop(ctx):
-            voice = get(client.voice_clients, guild=ctx.guild)
-
-            if voice.is_playing():
-                voice.stop()
-                await ctx.send('Stopping...')
-                  
         @client.command(pass_context=True)
         async def gv(ctx, url):
             class Fbdl:
@@ -224,8 +160,27 @@ def mid(client):
                     if os.path.isfile('Test.mp4') == True:
                          os.remove("Test.mp4")
 
+        @client.command()
+        async def t(ctx,*,text):
+            global gTTS
+            speech = gTTS(text=text, lang="en-us", slow=False)
+            speech.save("audio.mp3")
 
+            voice = get(client.voice_clients, guild=ctx.guild)
+            if not voice:
+                voice = await ctx.author.voice.channel.connect()
 
+            voice.play(discord.FFmpegPCMAudio('audio.mp3'), after=None)
 
+            
+            counter = 0
+            cwd = os.getcwd()
+            duration = audio_len(cwd + "/audio.mp3")
+            while not counter >= duration:
+                await asyncio.sleep(1)
+                counter += 1
+            
+            await ctx.purge(limit=1)
+            os.remove("audio.mp3")
 
-
+            
