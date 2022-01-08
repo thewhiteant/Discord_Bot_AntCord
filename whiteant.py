@@ -450,4 +450,7 @@ async def addbd(ctx, member: discord.User,date):
             bddb.update({"bd":date},k.id== member.id)
             await ctx.send("**Update Success**")
 
+
+
+
 client.run("OTI5MDY2OTUyMTA0NzY3NDg4.Ydh7Bg.coEGUST0ErXPUTaUZOi-v1pascc")
