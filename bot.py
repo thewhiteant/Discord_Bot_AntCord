@@ -452,8 +452,4 @@ async def addbd(ctx, member: discord.User,date):
 
 
 
-
 client.run("OTI5MDY2OTUyMTA0NzY3NDg4.Ydh7Bg.coEGUST0ErXPUTaUZOi-v1pascc")
-
-
-
