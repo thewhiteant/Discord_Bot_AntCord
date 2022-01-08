@@ -443,12 +443,13 @@ async def seid(ctx,name):
             await ctx.send(f"**Name: {name.name} \nBirthday: {data['bd']} \nAge: {age} **")
 
 
+
+
 @commands.has_role("Jucy")
 @client.command()
 async def addbd(ctx, member: discord.User,date):
             bddb.update({"bd":date},k.id== member.id)
             await ctx.send("**Update Success**")
-
 
 
 
