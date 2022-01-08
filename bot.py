@@ -17,6 +17,7 @@ from googlesearch import search
 from tinydb import TinyDB , Query
 import requests
 from datetime import date, datetime
+import urllib.parse
 
 
 gsk.set_cookie(ltuid=161804324, ltoken="V9R22r8dOIio7a6vquP5GbVkd3AjQ81G4hLDQvXH")
