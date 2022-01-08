@@ -13,16 +13,20 @@ from bs4 import BeautifulSoup as soup
 import sys
 import re
 import genshinstats as gsk
+from googlesearch import search
 from tinydb import TinyDB , Query
 import requests
 from datetime import date, datetime
-from googlesearch import search
 
 
 gsk.set_cookie(ltuid=161804324, ltoken="V9R22r8dOIio7a6vquP5GbVkd3AjQ81G4hLDQvXH")
+
+
 client = commands.Bot(command_prefix="x.", help_command=None,intents=discord.Intents.all())
 
 timegg = datetime.now()
+
+
 
 @client.event
 async def on_command_error(ctx, error):
@@ -30,6 +34,7 @@ async def on_command_error(ctx, error):
         await ctx.send("> **Command Not Found Type: ** 'x.help'")
 
 #voice Welcome
+
 va = []
 @client.event
 async def on_voice_state_update(member, before, after):   
@@ -51,6 +56,7 @@ async def on_voice_state_update(member, before, after):
                         await voice.disconnect()
 
     ##on rady
+
 @client.command()
 async def help(ctx):
     color = []
@@ -425,6 +431,8 @@ async def alladd(ctx):
         members = ctx.message.guild.members
         for member in members:
                bddb.insert({"id":member.id,"bd":""})
+
+
 @commands.has_role("Whiteant")
 @client.command()
 async def seid(ctx,name):
@@ -433,11 +441,12 @@ async def seid(ctx,name):
             name = client.get_user(idc)
             age = int(timegg.year) - int(data['bd'][0:4])           
             await ctx.send(f"**Name: {name.name} \nBirthday: {data['bd']} \nAge: {age} **")
+
+
 @commands.has_role("Jucy")
 @client.command()
 async def addbd(ctx, member: discord.User,date):
             bddb.update({"bd":date},k.id== member.id)
             await ctx.send("**Update Success**")
-
 
 client.run("OTI5MDY2OTUyMTA0NzY3NDg4.Ydh7Bg.coEGUST0ErXPUTaUZOi-v1pascc")
