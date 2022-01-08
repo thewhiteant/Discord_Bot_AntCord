@@ -8,8 +8,9 @@ from gtts import gTTS
 import asyncio
 from pythonping import ping as pongo
 from mutagen.mp3 import MP3
+from mal import *
 from mal import AnimeSearch, Anime
-from bs4 import BeautifulSoup as soupt
+from bs4 import BeautifulSoup as soup
 import sys
 import re
 import genshinstats as gsk
