@@ -1,8 +1,5 @@
-from aiohttp.helpers import NO_EXTENSIONS
 import discord
-from discord import user
 from discord.ext import commands, tasks
-from discord.flags import BaseFlags
 from discord.utils import get
 import random
 import asyncio
