@@ -9,7 +9,7 @@ import asyncio
 from pythonping import ping as pongo
 from mutagen.mp3 import MP3
 from mal import AnimeSearch, Anime
-from bs4 import BeautifulSoup as soup
+from bs4 import BeautifulSoup as soupt
 import sys
 import re
 import genshinstats as gsk
