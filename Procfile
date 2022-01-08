@@ -1,1 +1,1 @@
-worker: python Antcord.py
+worker: python bot.py

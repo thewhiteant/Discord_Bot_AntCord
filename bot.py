@@ -8,8 +8,7 @@ from gtts import gTTS
 import asyncio
 from pythonping import ping as pongo
 from mutagen.mp3 import MP3
-from mal import AnimeSearch
-from mal import Anime
+import mal
 from bs4 import BeautifulSoup as soup
 import sys
 import re
@@ -220,9 +219,9 @@ async def mangatx(ctx, *, data):
         #anime search
 @client.command()
 async def anime(ctx, *, data):
-    search = AnimeSearch(data)
+    search = mal.AnimeSearch(data)
     malid = search.results[0].mal_id
-    anime = Anime(malid)
+    anime = mal.Anime(malid)
     title = anime.title.strip(' \n\t ')
     title_japanese = anime.title_japanese.strip(' \n\t ')
     title_synonyms = anime.title_synonyms
