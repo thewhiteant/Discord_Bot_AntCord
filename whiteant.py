@@ -307,7 +307,7 @@ async def gv(ctx, url):
                         sys.stdout.flush()
     # try:
     Fbdl()
-    await ctx.channel.purge(limit=1)
+    # await ctx.channel.purge(limit=1)
     await ctx.send(file=discord.File("Video.mp4"))
     print("new video")
     if os.path.isfile('Video.mp4') == True:
