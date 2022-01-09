@@ -262,6 +262,7 @@ async def anime(ctx, *, data):
         role = i.role.strip(' \n\t ')
         embed.add_field(name=f"Charecter {y}", value=iname, inline=True)
     embed.set_footer(text="Copyright \u00a9 White-Ant")
+    await asyncio.sleep(20)
     await ctx.send(embed=embed)
         
         
@@ -305,18 +306,19 @@ async def gv(ctx, url):
                         done = int(25*dlw/total_length)
                         sys.stdout.write(f"\r[{'>'*done}{'='*(25-done)}] {ges+1}% ")
                         sys.stdout.flush()
-    # try:
-    Fbdl()
-    # await ctx.channel.purge(limit=1)
-    await ctx.send(file=discord.File("Video.mp4"))
-    print("new video")
-    if os.path.isfile('Video.mp4') == True:
-            os.remove("Video.mp4")
-    # except:
-    #     await ctx.send("Video Is not found / Too Large!! 8MB limit")
-    #     await ctx.send(url)
-    #     if os.path.isfile('Video.mp4') == True:
-    #             os.remove("Video.mp4")
+    try:
+        Fbdl()
+        await asyncio.sleep(20)
+        await ctx.channel.purge(limit=1)
+        await ctx.send(file=discord.File("Video.mp4"))
+        print("new video")
+        if os.path.isfile('Video.mp4') == True:
+                os.remove("Video.mp4")
+    except:
+        await ctx.send("Video Is not found / Too Large!! 8MB limit")
+        await ctx.send(url)
+        if os.path.isfile('Video.mp4') == True:
+                os.remove("Video.mp4")
            
 
         #kd bot command
