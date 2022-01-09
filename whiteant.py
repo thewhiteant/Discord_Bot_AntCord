@@ -67,7 +67,6 @@ async def help(ctx):
     embed = discord.Embed(title=ctx.author.name, description="You Got This!", url= inv , color=color[0])
     embed.set_author(name="  All Commands",url="", icon_url=ctx.author.avatar_url)
     embed.set_thumbnail( url="https://cdn.discordapp.com/avatars/929066952104767488/4b2e42b5bf544f2e19bad001563b3705.webp?size=1024")
-    embed.add_field(name="x.ping", value="Test Ping", inline=False)
     embed.add_field(name="x.mangatx manga_name ", value="Search Your Favorite Manga", inline=False)
     embed.add_field(name="x.anime anime_name", value="Search your favorite anime details ", inline=True)
     embed.add_field(name="x.gs search_key", value="Search anything on google", inline=True)
@@ -122,30 +121,30 @@ async def addgali(ctx,*,data):
 
 
 
-@client.command()
-async def ping(ctx):
-        ranchs = ["https://www.speedtest.net/","https://fast.com/","http://speedtest.googlefiber.net/","http://www.speedtest.com.sg/","https://www.highspeedinternet.com/tools/speed-test"]
+# @client.command()
+# async def ping(ctx):
+#         ranchs = ["https://www.speedtest.net/","https://fast.com/","http://speedtest.googlefiber.net/","http://www.speedtest.com.sg/","https://www.highspeedinternet.com/tools/speed-test"]
 
-        ping = round(client.latency*1000)
-        googleres = int(pongo("google.com", size=32,count=1).rtt_avg_ms)
-        faceres = int(pongo("facebook.com", size=32,count=1).rtt_avg_ms)
-        ytres = int(pongo("youtube.com", size=32, count=1).rtt_avg_ms)
-        twires = int(pongo("twitter.com", size=32, count=1).rtt_avg_ms)
-        vlin1 = int(pongo("157.240.7.35", size=32, count=1).rtt_avg_ms)
-        vlin2 = int(pongo("157.240.7.35", size=32, count=1).rtt_avg_ms)
-        colorx = []
-        for clr in range(0x00000, 0xfffff):
-            colorx.append(clr)
-        embed = discord.Embed(title=f"Ping: {ping} ms", description="Top Sites Ping's", color=random.choice(colorx))
-        embed.set_author(name=ctx.author.name,url=random.choice(ranchs), icon_url=ctx.author.avatar_url)
-        embed.add_field(name="Google", value=googleres, inline=True)
-        embed.add_field(name="Facebook", value=faceres, inline=True)
-        embed.add_field(name="Youtube", value=ytres, inline=True)
-        embed.add_field(name="Twitter", value=twires, inline=True)
-        embed.add_field(name="Valorant In_1", value=vlin1, inline=True)
-        embed.add_field(name="Valorant In_2", value=vlin2, inline=True)
-        embed.set_footer(text="Copyright \u00a9 White-Ant")
-        await ctx.send(embed=embed)
+#         ping = round(client.latency*1000)
+#         googleres = int(pongo("google.com", size=32,count=1).rtt_avg_ms)
+#         faceres = int(pongo("facebook.com", size=32,count=1).rtt_avg_ms)
+#         ytres = int(pongo("youtube.com", size=32, count=1).rtt_avg_ms)
+#         twires = int(pongo("twitter.com", size=32, count=1).rtt_avg_ms)
+#         vlin1 = int(pongo("157.240.7.35", size=32, count=1).rtt_avg_ms)
+#         vlin2 = int(pongo("157.240.7.35", size=32, count=1).rtt_avg_ms)
+#         colorx = []
+#         for clr in range(0x00000, 0xfffff):
+#             colorx.append(clr)
+#         embed = discord.Embed(title=f"Ping: {ping} ms", description="Top Sites Ping's", color=random.choice(colorx))
+#         embed.set_author(name=ctx.author.name,url=random.choice(ranchs), icon_url=ctx.author.avatar_url)
+#         embed.add_field(name="Google", value=googleres, inline=True)
+#         embed.add_field(name="Facebook", value=faceres, inline=True)
+#         embed.add_field(name="Youtube", value=ytres, inline=True)
+#         embed.add_field(name="Twitter", value=twires, inline=True)
+#         embed.add_field(name="Valorant In_1", value=vlin1, inline=True)
+#         embed.add_field(name="Valorant In_2", value=vlin2, inline=True)
+#         embed.set_footer(text="Copyright \u00a9 White-Ant")
+#         await ctx.send(embed=embed)
    
    
 @client.command()
@@ -268,7 +267,7 @@ async def anime(ctx, *, data):
         
         
         #video down
-@client.command(pass_context=True)
+@client.command()
 async def gv(ctx, url):
     class Fbdl:
         def __init__(self):
