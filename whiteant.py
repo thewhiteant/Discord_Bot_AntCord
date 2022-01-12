@@ -44,7 +44,11 @@ async def on_voice_state_update(member, before, after):
                 if member.name not in ["JucyT", "Rythm", "MEE6", "Pancake", "Hydra", "VoiceMaster", "Carl-bot"]:
                     if member.guild.name == "Team JUCY":
                         global gTTS
-                        speech = gTTS(text=f" {member.name} CL", lang="en-us", slow=False)
+
+                        if member.id == 671579277099270165:
+                            speech = gTTS( text=f" Welcome Sir {member.name}", lang="en-us", slow=False)
+                        else:
+                            speech = gTTS(text=f" {member.name} CL", lang="en-us", slow=False)
                         speech.save("wlcome.mp3")
                         await asyncio.sleep(2)
                         voice = get(client.voice_clients, guild=member.guild)
