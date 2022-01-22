@@ -46,20 +46,70 @@ async def on_voice_state_update(member, before, after):
                         global gTTS
 
                         if member.id == 671579277099270165:
-                            speech = gTTS( text=f" Good Night Sir {member.name}", lang="en-us", slow=False)
+                            speech = gTTS(text=f"{member.name} CL", lang="en-us", slow=False)
                         else:
-                            speech = gTTS( text=f" Good Night {member.name}", lang="en-us", slow=False)
-
-                    speech.save("wlcome.mp3")
-                    await asyncio.sleep(2)
-                    voice = get(client.voice_clients, guild=member.guild)
-                    if not voice:
+                            speech = gTTS(text=f"{member.name} CL", lang="en-us", slow=False)
+                        speech.save("wlcome.mp3")
+                        await asyncio.sleep(2)
+                        voice = get(client.voice_clients, guild=member.guild)
+                        if not voice:
                               voice = await member.voice.channel.connect()
                         voice.play(discord.FFmpegPCMAudio('wlcome.mp3'))
                         voice.is_playing()
                         await asyncio.sleep(4)
                         os.remove("wlcome.mp3")
                         await voice.disconnect()
+
+
+                        # if after.channel.id == 887716349688807474 and stime == 19:
+                        #         await asyncio.sleep(2)
+                        #         voice = get(client.voice_clients, guild=member.guild)
+                        #         if not voice:
+                        #             voice = await member.voice.channel.connect()
+                        #         voice.play(discord.FFmpegPCMAudio('ttp.mp3'))
+                        #         voice.is_playing()
+                        #         await asyncio.sleep(43)
+                        #         await voice.disconnect()    
+               
+ 
+                    #     if stime < 10 and stime > 5:
+                    #             if member.id == 671579277099270165:
+                    #                     speech = gTTS( text=f" Good Morning Sir {member.name}", lang="en-us", slow=False)
+                    #             else:  
+                    #                 speech = gTTS( text=f" Good Morning {member.name}", lang="en-us", slow=False)
+
+                    #     elif stime < 5 and stime > 23 :
+                    #             if member.id == 671579277099270165:
+                    #                     speech = gTTS( text=f" Good Night Sir {member.name}", lang="en-us", slow=False)
+                    #             else:  
+                    #                 speech = gTTS( text=f" Good Night {member.name}", lang="en-us", slow=False)                            
+                    #     else:
+                    #             if member.id == 671579277099270165:
+                    #                 speech = gTTS( text=f" Welcome Sir {member.name}", lang="en-us", slow=False)
+                    #             else:
+                    #                 speech = gTTS(text=f" {member.name} CL", lang="en-us", slow=False)
+                    #         speech.save("wlcome.mp3")
+                    #         await asyncio.sleep(2)
+                    #         voice = get(client.voice_clients, guild=member.guild)
+                    #         if not voice:
+                    #             voice = await member.voice.channel.connect()
+                    #         voice.play(discord.FFmpegPCMAudio('wlcome.mp3'))
+                    #         voice.is_playing()
+                    #         await asyncio.sleep(4)
+                    #         os.remove("wlcome.mp3")
+                    #         await voice.disconnect()
+                    #         speech = gTTS( text=f" Good Night {member.name}", lang="en-us", slow=False)
+
+                    # speech.save("wlcome.mp3")
+                    # await asyncio.sleep(2)
+                    # voice = get(client.voice_clients, guild=member.guild)
+                    # if not voice:
+                    #           voice = await member.voice.channel.connect()
+                    #     voice.play(discord.FFmpegPCMAudio('wlcome.mp3'))
+                    #     voice.is_playing()
+                    #     await asyncio.sleep(4)
+                    #     os.remove("wlcome.mp3")
+                    #     await voice.disconnect()
 
         ##on rady
 @client.command()
