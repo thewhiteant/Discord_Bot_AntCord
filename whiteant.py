@@ -6,7 +6,6 @@ import asyncio
 import os
 from gtts import gTTS
 import asyncio
-from pythonping import ping as pongo
 from mutagen.mp3 import MP3
 import mal
 from bs4 import BeautifulSoup as soup
@@ -19,12 +18,8 @@ import requests
 from datetime import date, datetime
 import urllib.parse
 
-
 gsk.set_cookie(ltuid=161804324, ltoken="V9R22r8dOIio7a6vquP5GbVkd3AjQ81G4hLDQvXH")
-
-
 client = commands.Bot(command_prefix="x.", help_command=None,intents=discord.Intents.all())
-
 timegg = datetime.now()
 
 
@@ -39,6 +34,8 @@ async def on_command_error(ctx, error):
 
 stime = int(timegg.strftime("%H"))
 
+
+
 va = []
 @client.event
 async def on_voice_state_update(member, before, after):   
@@ -48,42 +45,21 @@ async def on_voice_state_update(member, before, after):
                     if member.guild.name == "Team JUCY":
                         global gTTS
 
-                        if after.channel.id == 887716349688807474 and stime == 19:
-                                await asyncio.sleep(2)
-                                voice = get(client.voice_clients, guild=member.guild)
-                                if not voice:
-                                    voice = await member.voice.channel.connect()
-                                voice.play(discord.FFmpegPCMAudio('ttp.mp3'))
-                                voice.is_playing()
-                                await asyncio.sleep(43)
-                                await voice.disconnect()               
+                        if member.id == 671579277099270165:
+                            speech = gTTS( text=f" Good Night Sir {member.name}", lang="en-us", slow=False)
                         else:
-                            if stime < 10 and stime > 5:
-                                if member.id == 671579277099270165:
-                                        speech = gTTS( text=f" Good Morning Sir {member.name}", lang="en-us", slow=False)
-                                else:  
-                                    speech = gTTS( text=f" Good Morning {member.name}", lang="en-us", slow=False)
+                            speech = gTTS( text=f" Good Night {member.name}", lang="en-us", slow=False)
 
-                            elif stime < 5 and stime > 23 :
-                                if member.id == 671579277099270165:
-                                        speech = gTTS( text=f" Good Night Sir {member.name}", lang="en-us", slow=False)
-                                else:  
-                                    speech = gTTS( text=f" Good Night {member.name}", lang="en-us", slow=False)                            
-                            else:
-                                if member.id == 671579277099270165:
-                                    speech = gTTS( text=f" Welcome Sir {member.name}", lang="en-us", slow=False)
-                                else:
-                                    speech = gTTS(text=f" {member.name} CL", lang="en-us", slow=False)
-                            speech.save("wlcome.mp3")
-                            await asyncio.sleep(2)
-                            voice = get(client.voice_clients, guild=member.guild)
-                            if not voice:
-                                voice = await member.voice.channel.connect()
-                            voice.play(discord.FFmpegPCMAudio('wlcome.mp3'))
-                            voice.is_playing()
-                            await asyncio.sleep(4)
-                            os.remove("wlcome.mp3")
-                            await voice.disconnect()
+                    speech.save("wlcome.mp3")
+                    await asyncio.sleep(2)
+                    voice = get(client.voice_clients, guild=member.guild)
+                    if not voice:
+                              voice = await member.voice.channel.connect()
+                        voice.play(discord.FFmpegPCMAudio('wlcome.mp3'))
+                        voice.is_playing()
+                        await asyncio.sleep(4)
+                        os.remove("wlcome.mp3")
+                        await voice.disconnect()
 
         ##on rady
 @client.command()
@@ -103,12 +79,12 @@ async def help(ctx):
     embed.add_field(name="x.t message ", value="Text To speech With Bot", inline=True)
     embed.set_footer(text="Copyright © White-Ant")
     await ctx.send(embed=embed)
+
 @client.event
 async def on_ready():
-    print("Bot Running------------>")
-    activity = discord.Activity(name="with JucyT 💦", type=1)  #
+    activity = discord.Activity(name="with JucyT 💦", type=1) 
     await client.change_presence(activity=activity)
-
+    print("Bot Running------------>")
 
 galis = TinyDB("Galidb.json")
 q = Query()
@@ -146,34 +122,6 @@ async def on_message(message):
 async def addgali(ctx,*,data):
         if checkgal(data) == False:
                 galis.insert({"gali": data})
-
-
-
-# @client.command()
-# async def ping(ctx):
-#         ranchs = ["https://www.speedtest.net/","https://fast.com/","http://speedtest.googlefiber.net/","http://www.speedtest.com.sg/","https://www.highspeedinternet.com/tools/speed-test"]
-
-#         ping = round(client.latency*1000)
-#         googleres = int(pongo("google.com", size=32,count=1).rtt_avg_ms)
-#         faceres = int(pongo("facebook.com", size=32,count=1).rtt_avg_ms)
-#         ytres = int(pongo("youtube.com", size=32, count=1).rtt_avg_ms)
-#         twires = int(pongo("twitter.com", size=32, count=1).rtt_avg_ms)
-#         vlin1 = int(pongo("157.240.7.35", size=32, count=1).rtt_avg_ms)
-#         vlin2 = int(pongo("157.240.7.35", size=32, count=1).rtt_avg_ms)
-#         colorx = []
-#         for clr in range(0x00000, 0xfffff):
-#             colorx.append(clr)
-#         embed = discord.Embed(title=f"Ping: {ping} ms", description="Top Sites Ping's", color=random.choice(colorx))
-#         embed.set_author(name=ctx.author.name,url=random.choice(ranchs), icon_url=ctx.author.avatar_url)
-#         embed.add_field(name="Google", value=googleres, inline=True)
-#         embed.add_field(name="Facebook", value=faceres, inline=True)
-#         embed.add_field(name="Youtube", value=ytres, inline=True)
-#         embed.add_field(name="Twitter", value=twires, inline=True)
-#         embed.add_field(name="Valorant In_1", value=vlin1, inline=True)
-#         embed.add_field(name="Valorant In_2", value=vlin2, inline=True)
-#         embed.set_footer(text="Copyright \u00a9 White-Ant")
-#         await ctx.send(embed=embed)
-   
    
 @client.command()
 async def delt(ctx, dat):
@@ -187,17 +135,11 @@ async def rl(ctx,*,name):
         role = discord.utils.get(ctx.guild.roles, name=name)
         await ctx.author.add_roles(role)
 
-
-
-
-
 @commands.has_role("Whiteant")
 @client.command()
 async def rerl(ctx,*,name):
         role = discord.utils.get(ctx.guild.roles, name=name)
         await ctx.author.remove_roles(role)
-
-
 
         #dm role
 @commands.has_role("Whiteant")
@@ -207,17 +149,12 @@ async def dm(ctx, user: discord.User, *, msg):
         await ctx.send(f"Private DM Sent To {user.name}....")
         await user.send(msg)
 
-
-
 @commands.has_role("Whiteant")
 @client.command()
 async def leavex(ctx):
         print(ctx.guild.name)
         await ctx.send("I am leaving this guild!")
         await ctx.guild.leave()
-
-
-
 
 @client.command()
 async def mangatx(ctx, *, data):
@@ -242,8 +179,6 @@ async def mangatx(ctx, *, data):
         await ctx.send(embed=embed)
     except:
         await ctx.send("Data Not Found / An Error Occurs")
-           
-           
         #anime search
 @client.command()
 async def anime(ctx, *, data):
@@ -291,9 +226,9 @@ async def anime(ctx, *, data):
     embed.set_footer(text="Copyright \u00a9 White-Ant")
     await asyncio.sleep(20)
     await ctx.send(embed=embed)
-        
-        
-        
+
+    
+
         #video down
 @client.command()
 async def gv(ctx, url):
@@ -472,10 +407,10 @@ async def seid(ctx,name):
             age = int(timegg.year) - int(data['bd'][0:4])           
             await ctx.send(f"**Name: {name.name} \nBirthday: {data['bd']} \nAge: {age} **")
 
-
 @commands.has_role("Jucy")
 @client.command()
 async def addbd(ctx, member: discord.User,date):
             bddb.update({"bd":date},k.id== member.id)
             await ctx.send("**Update Success**")
 client.run("OTI5MDY2OTUyMTA0NzY3NDg4.Ydh7Bg.coEGUST0ErXPUTaUZOi-v1pascc")
+
