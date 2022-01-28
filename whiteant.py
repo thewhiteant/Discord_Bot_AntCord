@@ -371,16 +371,16 @@ async def gs(ctx,*,k):
       #demo 808118884
 @client.command()
 async def gen(ctx,uid):
-            if uid == "ant":
+            if uid.lower() == "ant":
                 uid = 831148294
-            elif uid == "mando":
+            elif uid.lower() == "mando":
                 uid = 806723089
-            elif uid == "nut":
+            elif uid.lower() == "nut":
                 uid = 815723573
-            elif uid == "demo":
+            elif uid.lower() == "demo":
                 uid = 808118884
-            elif uid == "vyper":
-                uid == 815024102
+            elif uid.lower() == "viper":
+                uid = 815024102
 
 
             try:
