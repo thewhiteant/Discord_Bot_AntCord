@@ -277,7 +277,6 @@ async def anime(ctx, *, data):
     await asyncio.sleep(20)
     await ctx.send(embed=embed)
 
-    
 
         #video down
 @client.command()
@@ -350,17 +349,17 @@ async def t(ctx,*,text):
             await voice.disconnect()
 
 @client.command()
-async def gs(ctx,query):
-    if query is not None:
+async def gs(ctx,*,k):
+    if k is not None:
         color = []
         for clr in range(0x00000, 0xfffff):
             color.append(clr)
-        url = f"https://www.google.com/search?q={query}"
+        url = f"https://www.google.com/search?q={k}"
         embed = discord.Embed(title="Google Search Links", url=url , description=f"Search Results Links",color=random.choice(color))
         embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar_url)
         embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR_BFrkWhROKKC1YzmlN3N33ZjiP-jym5IZ3fW-Hyf5vW9p94ltAeo0ZXyJdwT4rINWQY&usqp=CAU")
         v = 0
-        for j in search(query, tld="com", num=10, stop=10):
+        for j in search(k, tld="com", num=10, stop=10):
             v+=1
             embed.add_field(name=f"{v}. Found ", value=j,inline=False)
         await ctx.send(embed=embed)
@@ -380,6 +379,10 @@ async def gen(ctx,uid):
                 uid = 815723573
             elif uid == "demo":
                 uid = 808118884
+            elif uid == "vyper":
+                uid == 815024102
+
+
             try:
                   data = gsk.get_user_stats(uid)
                   stats = data["stats"]
@@ -407,7 +410,7 @@ async def gen(ctx,uid):
                   # embed.add_field(name="Anemoculus", value=f"{elec}/181", inline=True)
                   embed.add_field(name="spiral abyss",value=spiralab, inline=False)
                   embed.add_field(name="Total Charecter ", value=chrcount, inline=True)
-                  embed.add_field(name="achievement", value=actived, inline=True)
+                  embed.add_field(name="achievement", value=achive, inline=True)
                   for i in fivs:
                         embed.add_field(name= i["name"] , value=f"Level: {i['level']}", inline=False)
                   await ctx.send(embed=embed)
@@ -417,7 +420,6 @@ async def gen(ctx,uid):
 async def tgs(ctx, *, text: str):
             await ctx.purge(limit=1)
             await ctx.send(text,tts=True)
-
 
 bddb = TinyDB("bd.json")
 k = Query()
@@ -462,5 +464,8 @@ async def seid(ctx,name):
 async def addbd(ctx, member: discord.User,date):
             bddb.update({"bd":date},k.id== member.id)
             await ctx.send("**Update Success**")
+
+
+
 client.run("OTI5MDY2OTUyMTA0NzY3NDg4.Ydh7Bg.coEGUST0ErXPUTaUZOi-v1pascc")
 
