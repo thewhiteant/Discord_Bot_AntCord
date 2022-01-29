@@ -1,3 +1,7 @@
+from ast import Pass
+import marshal
+from pickle import TRUE
+from tkinter.messagebox import NO
 import discord
 from discord.ext import commands, tasks
 from discord.utils import get
@@ -6,6 +10,7 @@ import asyncio
 import os
 from gtts import gTTS
 import asyncio
+from matplotlib.style import use
 from mutagen.mp3 import MP3
 import mal
 from bs4 import BeautifulSoup as soup
@@ -22,6 +27,9 @@ gsk.set_cookie(ltuid=161804324, ltoken="V9R22r8dOIio7a6vquP5GbVkd3AjQ81G4hLDQvXH
 client = commands.Bot(command_prefix="x.", help_command=None,intents=discord.Intents.all())
 timegg = datetime.now()
 
+dbmain = TinyDB("maindb.json")
+galis = TinyDB("Galidb.json")
+mainq = Query()
 
 
 
@@ -36,6 +44,23 @@ stime = int(timegg.strftime("%H"))
 
 
 
+@client.event
+async def on_member_join(member):
+            x = dbmain.search(mainq.id==member.id)
+            if  not x:
+                dbmain.insert({"id": member.id, "bd": "", "gc": 0, "Scammer": False ,"roles":[]})
+            if x[0]['Scammer'] == True:
+                embed = discord.Embed(title="Warning!!", description=f"You Marked As A Scammer. Don't Spam or spread the malicious link", color=0xe40101)
+                embed.set_author(name=member.name,icon_url=member.avatar_url)
+                embed.set_thumbnail(url="https://cdn1.vectorstock.com/i/thumb-large/01/85/triangular-red-warning-hazard-symbol-vector-25180185.jpg")
+                embed.set_footer(text="Copyright \u00a9 White-Ant")
+                await member.send(embed = embed) 
+            if x:
+                for rl in (x[0]['roles']):
+                    role = discord.utils.get(member.guild.roles, name=rl)
+                    await member.add_roles(role)
+
+
 va = []
 @client.event
 async def on_voice_state_update(member, before, after):   
@@ -46,11 +71,11 @@ async def on_voice_state_update(member, before, after):
                         global gTTS
 
                         if member.id == 671579277099270165:
-                            speech = gTTS(text=f"{member.name} CL", lang="en-us", slow=False)
+                            speech = gTTS(text=f"Welcome Sir {member.nick}", lang="en-us", slow=False)
                         else:
-                            speech = gTTS(text=f"{member.name} CL", lang="en-us", slow=False)
+                            speech = gTTS(text=f"{member.name}", lang="en-us", slow=False)
                         speech.save("wlcome.mp3")
-                        await asyncio.sleep(2)
+                        await asyncio.sleep(1)
                         voice = get(client.voice_clients, guild=member.guild)
                         if not voice:
                               voice = await member.voice.channel.connect()
@@ -60,56 +85,6 @@ async def on_voice_state_update(member, before, after):
                         os.remove("wlcome.mp3")
                         await voice.disconnect()
 
-
-                        # if after.channel.id == 887716349688807474 and stime == 19:
-                        #         await asyncio.sleep(2)
-                        #         voice = get(client.voice_clients, guild=member.guild)
-                        #         if not voice:
-                        #             voice = await member.voice.channel.connect()
-                        #         voice.play(discord.FFmpegPCMAudio('ttp.mp3'))
-                        #         voice.is_playing()
-                        #         await asyncio.sleep(43)
-                        #         await voice.disconnect()    
-               
- 
-                    #     if stime < 10 and stime > 5:
-                    #             if member.id == 671579277099270165:
-                    #                     speech = gTTS( text=f" Good Morning Sir {member.name}", lang="en-us", slow=False)
-                    #             else:  
-                    #                 speech = gTTS( text=f" Good Morning {member.name}", lang="en-us", slow=False)
-
-                    #     elif stime < 5 and stime > 23 :
-                    #             if member.id == 671579277099270165:
-                    #                     speech = gTTS( text=f" Good Night Sir {member.name}", lang="en-us", slow=False)
-                    #             else:  
-                    #                 speech = gTTS( text=f" Good Night {member.name}", lang="en-us", slow=False)                            
-                    #     else:
-                    #             if member.id == 671579277099270165:
-                    #                 speech = gTTS( text=f" Welcome Sir {member.name}", lang="en-us", slow=False)
-                    #             else:
-                    #                 speech = gTTS(text=f" {member.name} CL", lang="en-us", slow=False)
-                    #         speech.save("wlcome.mp3")
-                    #         await asyncio.sleep(2)
-                    #         voice = get(client.voice_clients, guild=member.guild)
-                    #         if not voice:
-                    #             voice = await member.voice.channel.connect()
-                    #         voice.play(discord.FFmpegPCMAudio('wlcome.mp3'))
-                    #         voice.is_playing()
-                    #         await asyncio.sleep(4)
-                    #         os.remove("wlcome.mp3")
-                    #         await voice.disconnect()
-                    #         speech = gTTS( text=f" Good Night {member.name}", lang="en-us", slow=False)
-
-                    # speech.save("wlcome.mp3")
-                    # await asyncio.sleep(2)
-                    # voice = get(client.voice_clients, guild=member.guild)
-                    # if not voice:
-                    #           voice = await member.voice.channel.connect()
-                    #     voice.play(discord.FFmpegPCMAudio('wlcome.mp3'))
-                    #     voice.is_playing()
-                    #     await asyncio.sleep(4)
-                    #     os.remove("wlcome.mp3")
-                    #     await voice.disconnect()
 
         ##on rady
 @client.command()
@@ -132,12 +107,11 @@ async def help(ctx):
 
 @client.event
 async def on_ready():
-    activity = discord.Activity(name="with JucyT 💦", type=1) 
+    activity = discord.Activity(name="with JucyT 🍑 ", type=1)
     await client.change_presence(activity=activity)
     print("Bot Running------------>")
 
-galis = TinyDB("Galidb.json")
-q = Query()
+
 
 def checkgal(words):
     for data in galis:
@@ -145,26 +119,44 @@ def checkgal(words):
             return True
     return False
 
+
+
 @client.event
 async def on_message(message):
             if message.author == client.user: #boter commad e  react korbena
                 return
-            for badword in galis:
-                badword = badword['gali']
-                if badword in message.content.lower():
-                    embed = discord.Embed(title="Warning!!", description=f"{message.author.name} Dont Use Badword!!", color=0xe40101)
-                    embed.set_author(name= client.user.name , url="https://discord.gg/32rGZFTFEk", icon_url=message.author.avatar_url)
-                    embed.set_thumbnail(url="https://cdn1.vectorstock.com/i/thumb-large/01/85/triangular-red-warning-hazard-symbol-vector-25180185.jpg")
-                    embed.set_footer(text="Copyright \u00a9 White-Ant")
+            scamr = (dbmain.search(mainq.id==message.author.id))[0]
+            if (scamr['Scammer'] == True) and 'https://' in message.content:
                     await message.channel.purge(limit=1)
-                    await message.channel.send(embed=embed)
-                    embed = discord.Embed(title="Warning!!", description="Be Careful With Your Word Sir!!", color=0xe40101)
+                    embed = discord.Embed(title="Warning!!", description=f"Whenever you mark as a scammer you can't send any link", color=0xe40101)
                     embed.set_author(name=message.author.name, url="https://discord.gg/32rGZFTFEk", icon_url=message.author.avatar_url)
-                    embed.add_field(name="**Bad Word**", value=f"{badword}", inline=True)
                     embed.set_thumbnail(url="https://cdn1.vectorstock.com/i/thumb-large/01/85/triangular-red-warning-hazard-symbol-vector-25180185.jpg")
                     embed.set_footer(text="Copyright \u00a9 White-Ant")
                     await message.author.send(embed = embed)
+                    
+                    await message.author.send(embed=embed)
+            if 'https://' not in message.content:
+                    for badword in galis:
+                        badword = badword['gali']
+                        if badword in message.content.lower():
+                            x = dbmain.search(mainq.id==message.author.id)
+                            dbmain.update({'gc': (x[0]['gc'])+1}, mainq.id==message.author.id)
+                            embed = discord.Embed(title="Warning!!", description=f"{message.author.name} Dont Use Badword!! ", color=0xe40101)
+                            embed.set_author(name= client.user.name , url="https://discord.gg/32rGZFTFEk", icon_url=message.author.avatar_url)
+                            embed.set_thumbnail(url="https://cdn1.vectorstock.com/i/thumb-large/01/85/triangular-red-warning-hazard-symbol-vector-25180185.jpg")
+                            embed.add_field(name="Gali Count ", value=((x[0]['gc'])+1), inline=True)
+                            embed.set_footer(text="Copyright \u00a9 White-Ant")
+                            await message.channel.purge(limit=1)
+                            await message.channel.send(embed=embed)
+                            embed = discord.Embed(title="Warning!!", description=f"Be Careful With Your Word Sir!! ", color=0xe40101)
+                            embed.set_author(name=message.author.name, url="https://discord.gg/32rGZFTFEk", icon_url=message.author.avatar_url)
+                            embed.add_field(name="**Bad Word**", value=f"|| {badword} ||", inline=True)
+                            embed.set_thumbnail(url="https://cdn1.vectorstock.com/i/thumb-large/01/85/triangular-red-warning-hazard-symbol-vector-25180185.jpg")
+                            embed.add_field(name="Gali Count ", value=((x[0]['gc'])+1), inline=True)
+                            embed.set_footer(text="Copyright \u00a9 White-Ant")
+                            await message.author.send(embed = embed)
             await client.process_commands(message)
+
 
 
 @commands.has_role("Whiteant")
@@ -172,7 +164,8 @@ async def on_message(message):
 async def addgali(ctx,*,data):
         if checkgal(data) == False:
                 galis.insert({"gali": data})
-   
+
+@commands.has_role("Whiteant")
 @client.command()
 async def delt(ctx, dat):
         await ctx.channel.purge(limit=int(dat))
@@ -274,63 +267,8 @@ async def anime(ctx, *, data):
         role = i.role.strip(' \n\t ')
         embed.add_field(name=f"Charecter {y}", value=iname, inline=True)
     embed.set_footer(text="Copyright \u00a9 White-Ant")
-    await asyncio.sleep(20)
     await ctx.send(embed=embed)
 
-
-        #video down
-@client.command()
-async def gv(ctx, url):
-    class Fbdl:
-        def __init__(self):
-            self.req = requests.Session()
-            self.banner()
-        def banner(self):
-            ur = url
-            rl = ur.replace('https://m.', 'https://mbasic.').replace('https://www.', 'https://mbasic.')
-            self.getlnk(rl)
-        def getlnk(self, url):
-            r = self.req.get(url)
-            rr = re.findall(r'<a href="(.*?)"', r.text)
-            all_video = []
-            for x in rr:
-                if "/video_redirect/?src=" in x:
-                    all_video.append(x)
-            data = all_video[0]
-            self.dl(data)
-        def dl(self, link):
-            re = link.replace('/video_redirect/?src=', '')
-            ree = urllib.parse.unquote(re)
-            print("Downloading ... ")
-            with open(f"Video.mp4", "wb") as f:
-                response = requests.get(ree, stream=True)
-                total_length = response.headers.get('content-length')
-                if total_length is None:
-                     pass
-                else:
-                    dlw = 0
-                    total_length = int(total_length)
-                    for data in response.iter_content(chunk_size=4096):
-                        ges = int(100*dlw/total_length)
-                        dlw += len(data)
-                        f.write(data)
-                        done = int(25*dlw/total_length)
-                        sys.stdout.write(f"\r[{'>'*done}{'='*(25-done)}] {ges+1}% ")
-                        sys.stdout.flush()
-    try:
-        Fbdl()
-        await asyncio.sleep(20)
-        await ctx.channel.purge(limit=1)
-        await ctx.send(file=discord.File("Video.mp4"))
-        print("new video")
-        if os.path.isfile('Video.mp4') == True:
-                os.remove("Video.mp4")
-    except:
-        await ctx.send("Video Is not found / Too Large!! 8MB limit")
-        await ctx.send(url)
-        if os.path.isfile('Video.mp4') == True:
-                os.remove("Video.mp4")
-           
 
         #kd bot command
 @client.command()
@@ -347,6 +285,8 @@ async def t(ctx,*,text):
             await asyncio.sleep(duration)
             os.remove("audio.mp3")
             await voice.disconnect()
+
+
 
 @client.command()
 async def gs(ctx,*,k):
@@ -365,10 +305,7 @@ async def gs(ctx,*,k):
         await ctx.send(embed=embed)
     else:
         await ctx.send("Search Key Req")
-      #whiteant 831148294
-      #gandu 806723089
-      #nutcracker 815723573
-      #demo 808118884
+
 @client.command()
 async def gen(ctx,uid):
             if uid.lower() == "ant":
@@ -421,14 +358,13 @@ async def tgs(ctx, *, text: str):
             await ctx.purge(limit=1)
             await ctx.send(text,tts=True)
 
-bddb = TinyDB("bd.json")
-k = Query()
+
 chk = []
 @tasks.loop(seconds=1)
 async def check():   
     await asyncio.sleep(10)
     today = str(date.today())
-    bddate = bddb.search(k.bd==today)
+    bddate = dbmain.search(mainq.bd==today)
     for ik in bddate:
         bd = ik["bd"]
         sal = int(timegg.year) - int(bd[0:4]) 
@@ -442,32 +378,79 @@ async def check():
         chk.clear()
 check.start()
 
+
+
 @commands.has_role("Whiteant")
 @client.command()
 async def alladd(ctx):
         members = ctx.message.guild.members
         for member in members:
-               bddb.insert({"id":member.id,"bd":""})
+            x = dbmain.search(mainq.id == member.id)
+            if not x:
+                dbmain.insert({"id": member.id, "bd": "", "gc": 0, "Scammer": False , "roles":[]})
+@client.command()
+async def allrl(ctx):
+    allmem = ctx.message.guild.members
+    for m in allmem:
+        rls = []
+        for i in m.roles:
+                    if (i.name != "@everyone"):
+                        if (i.name == "Jucy") or (i.name == "Whiteant") or (i.name == "Dev"):
+                                rls.append(i.name)
+        dbmain.update({"roles":rls},mainq.id==m.id)
+                
+
 
 
 @commands.has_role("Whiteant")
 @client.command()
-async def seid(ctx,name):
-            data = bddb.search(k.id == int(name))[0] 
-            idc = data['id']
-            name = client.get_user(idc)
-            age = int(timegg.year) - int(data['bd'][0:4])           
-            await ctx.send(f"**Name: {name.name} \nBirthday: {data['bd']} \nAge: {age} **")
+async def showdata(ctx, user: discord.User):
+            data = (dbmain.search(mainq.id == int(user.id)))[0]
+            idc = ""
+            if data['id']:
+                idc = data['id']
+            
+            name = ""
+            if idc:
+                name = client.get_user(idc)
+            age = ""
+            if data['bd']:
+                age = int(timegg.year) - int(data['bd'][0:4])
+                    
+            await ctx.send(f"**Name: {name.name} \nBirthday: || {data['bd']} || \nAge: || {age} || \n Gali: {data['gc']} \n|| Scammer : {data['Scammer']} ||**")
+
+
+
+@commands.has_role("Whiteant")
+@client.command()
+async def showidata(ctx, user):
+            data = (dbmain.search(mainq.id == int(user)))[0]
+            idc = ""
+            if data['id']:
+                idc = data['id']
+
+            name = ""
+            if idc:
+                name = client.get_user(idc)
+            age = ""
+            if data['bd']:
+                age = int(timegg.year) - int(data['bd'][0:4])
+
+            await ctx.send(f"**Name: {name.name} \nBirthday: || {data['bd']} || \nAge: || {age} || \n Gali: {data['gc']} \n|| Scammer : {data['Scammer']} ||**")
+
+
 
 @commands.has_role("Jucy")
 @client.command()
 async def addbd(ctx, member: discord.User,date):
-            bddb.update({"bd":date},k.id== member.id)
+            dbmain.update({"bd":date},mainq.id== member.id)
             await ctx.send("**Update Success**")
 
-
-
+@commands.has_role("Whiteant")
+@client.command()
+async def scammer(ctx, member: discord.User):
+    dbmain.update({"Scammer": True}, mainq.id == member.id)
+    await ctx.send("Scammer Marked")
 
 
 client.run("OTI5MDY2OTUyMTA0NzY3NDg4.Ydh7Bg.coEGUST0ErXPUTaUZOi-v1pascc")
-
