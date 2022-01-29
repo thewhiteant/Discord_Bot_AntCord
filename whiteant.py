@@ -1,7 +1,3 @@
-from ast import Pass
-import marshal
-from pickle import TRUE
-from tkinter.messagebox import NO
 import discord
 from discord.ext import commands, tasks
 from discord.utils import get
@@ -10,18 +6,15 @@ import asyncio
 import os
 from gtts import gTTS
 import asyncio
-from matplotlib.style import use
 from mutagen.mp3 import MP3
 import mal
 from bs4 import BeautifulSoup as soup
-import sys
-import re
 import genshinstats as gsk
 from googlesearch import search
 from tinydb import TinyDB , Query
 import requests
 from datetime import date, datetime
-import urllib.parse
+
 
 gsk.set_cookie(ltuid=161804324, ltoken="V9R22r8dOIio7a6vquP5GbVkd3AjQ81G4hLDQvXH")
 client = commands.Bot(command_prefix="x.", help_command=None,intents=discord.Intents.all())
