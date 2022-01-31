@@ -59,12 +59,12 @@ va = []
 async def on_voice_state_update(member, before, after):   
         if (after.channel is not None) and (before.channel is None):
             if member != client.user:
-                if member.name not in ["JucyT", "Rythm", "MEE6", "Pancake", "Hydra", "VoiceMaster", "Carl-bot"]:
+                if member.name not in ["Rythm", "MEE6", "Pancake", "Hydra", "VoiceMaster", "Carl-bot","Dyno","ProBot"]:
                     if member.guild.name == "Team JUCY":
                         global gTTS
 
                         if member.id == 671579277099270165:
-                            speech = gTTS(text=f"Welcome Sir {member.nick}", lang="en-us", slow=False)
+                           speech = gTTS(text=f"Welcome Sir {member.nick}", lang="en-us", slow=False)
                         else:
                             speech = gTTS(text=f"{member.name}", lang="en-us", slow=False)
                         speech.save("wlcome.mp3")
@@ -103,6 +103,7 @@ async def on_ready():
     activity = discord.Activity(name="with JucyT 🍑 ", type=1)
     await client.change_presence(activity=activity)
     print("Bot Running------------>")
+
 
 
 
@@ -444,6 +445,9 @@ async def addbd(ctx, member: discord.User,date):
 async def scammer(ctx, member: discord.User):
     dbmain.update({"Scammer": True}, mainq.id == member.id)
     await ctx.send("Scammer Marked")
+
+
+
 
 
 client.run("OTI5MDY2OTUyMTA0NzY3NDg4.Ydh7Bg.coEGUST0ErXPUTaUZOi-v1pascc")
