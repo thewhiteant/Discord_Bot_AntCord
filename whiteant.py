@@ -59,7 +59,7 @@ va = []
 async def on_voice_state_update(member, before, after):   
         if (after.channel is not None) and (before.channel is None):
             if member != client.user:
-                if member.name not in ["Rythm", "MEE6", "Pancake", "Hydra", "VoiceMaster", "Carl-bot","Dyno","ProBot"]:
+                if member.name not in ["JucyT","Rythm", "MEE6", "Pancake", "Hydra", "VoiceMaster", "Carl-bot","Dyno","ProBot"]:
                     if member.guild.name == "Team JUCY":
                         global gTTS
 
