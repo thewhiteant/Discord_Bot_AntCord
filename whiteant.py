@@ -440,6 +440,8 @@ async def addbd(ctx, member: discord.User,date):
             dbmain.update({"bd":date},mainq.id== member.id)
             await ctx.send("**Update Success**")
 
+
+
 @commands.has_role("Whiteant")
 @client.command()
 async def scammer(ctx, member: discord.User):
