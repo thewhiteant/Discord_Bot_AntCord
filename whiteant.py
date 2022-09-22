@@ -16,7 +16,7 @@ import requests
 from datetime import date, datetime
 
 
-gsk.set_cookie(ltuid=161804324, ltoken="V9R22r8dOIio7a6vquP5GbVkd3AjQ81G4hLDQvXH")
+gsk.set_cookie(ltuid=161804324, ltoken="#genshin token")
 client = commands.Bot(command_prefix="x.", help_command=None,intents=discord.Intents.all())
 timegg = datetime.now()
 
@@ -432,8 +432,6 @@ async def showidata(ctx, user):
 
             await ctx.send(f"**Name: {name.name} \nBirthday: || {data['bd']} || \nAge: || {age} || \n Gali: {data['gc']} \n|| Scammer : {data['Scammer']} ||**")
 
-
-
 @commands.has_role("Jucy")
 @client.command()
 async def addbd(ctx, member: discord.User,date):
@@ -448,8 +446,4 @@ async def scammer(ctx, member: discord.User):
     dbmain.update({"Scammer": True}, mainq.id == member.id)
     await ctx.send("Scammer Marked")
 
-
-
-
-
-client.run("OTI5MDY2OTUyMTA0NzY3NDg4.Ydh7Bg.coEGUST0ErXPUTaUZOi-v1pascc")
+client.run("#Token")
