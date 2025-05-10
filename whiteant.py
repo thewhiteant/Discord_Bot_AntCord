@@ -12,8 +12,8 @@ from bs4 import BeautifulSoup as soup
 import genshinstats as gsk
 from googlesearch import search
 from tinydb import TinyDB , Query
-import requests
 from datetime import date, datetime
+from security import safe_requests
 
 
 gsk.set_cookie(ltuid=161804324, ltoken="#genshin token")
@@ -197,7 +197,7 @@ async def leavex(ctx):
 async def mangatx(ctx, *, data):
     try:
         url = f"https://mangatx.com/?s={data}&post_type=wp-manga"
-        getD = requests.get(url).text
+        getD = safe_requests.get(url).text
         data = soup(getD, "lxml")
         all_Data = data.find_all("div", class_="row c-tabs-item__content")[0]
         link = all_Data.find("h3", class_="h4").a["href"]
