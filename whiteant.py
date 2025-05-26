@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands, tasks
 from discord.utils import get
-import random
 import asyncio
 import os
 from gtts import gTTS
@@ -14,6 +13,7 @@ from googlesearch import search
 from tinydb import TinyDB , Query
 import requests
 from datetime import date, datetime
+import secrets
 
 
 gsk.set_cookie(ltuid=161804324, ltoken="#genshin token")
@@ -208,7 +208,7 @@ async def mangatx(ctx, *, data):
         color = []
         for clr in range(0x00000, 0xfffff):
             color.append(clr)
-        embed = discord.Embed(title=name, color=random.choice(color))
+        embed = discord.Embed(title=name, color=secrets.choice(color))
         embed.set_image(url=thumb)
         embed.add_field(name="Genre", value=genres, inline=True)
         embed.add_field(name="Latest Chapter", value=lch, inline=False)
@@ -241,7 +241,7 @@ async def anime(ctx, *, data):
     color = []
     for clr in range(0x00000, 0xfffff):
          color.append(clr)
-    embed = discord.Embed(title=title, url=url, description=f"Japanese Name : {title_japanese} \nSynonyms : {title_synonyms} ", color=random.choice(color))
+    embed = discord.Embed(title=title, url=url, description=f"Japanese Name : {title_japanese} \nSynonyms : {title_synonyms} ", color=secrets.choice(color))
     embed.set_image(url=image_url)
     embed.add_field(name="Types", value=types, inline=True)
     embed.add_field(name="Genre", value=genres, inline=True)
@@ -289,7 +289,7 @@ async def gs(ctx,*,k):
         for clr in range(0x00000, 0xfffff):
             color.append(clr)
         url = f"https://www.google.com/search?q={k}"
-        embed = discord.Embed(title="Google Search Links", url=url , description=f"Search Results Links",color=random.choice(color))
+        embed = discord.Embed(title="Google Search Links", url=url , description=f"Search Results Links",color=secrets.choice(color))
         embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar_url)
         embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR_BFrkWhROKKC1YzmlN3N33ZjiP-jym5IZ3fW-Hyf5vW9p94ltAeo0ZXyJdwT4rINWQY&usqp=CAU")
         v = 0
@@ -332,7 +332,7 @@ async def gen(ctx,uid):
                   color = []
                   for clr in range(0x00000, 0xfffff):
                         color.append(clr)
-                  embed = discord.Embed( title="Genshin Tracker", description="All Stats Genshin Imapact" , color=random.choice(color))
+                  embed = discord.Embed( title="Genshin Tracker", description="All Stats Genshin Imapact" , color=secrets.choice(color))
                   embed.set_author(name=f"User {uid}", icon_url=ctx.author.avatar_url)
                   embed.set_image(url="https://img.republicworld.com/republic-prod/stories/promolarge/xhdpi/3cw05gwejs5pf8ms_1603975477.jpeg?tr=w-1200,h-900")
                   embed.add_field(name="Active Days" , value=actived ,inline=False)
